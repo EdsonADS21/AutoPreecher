@@ -1,0 +1,18 @@
+/* The same panel and storage, arranged for a drawer. */
+html[data-embedded=true] header .head-title,
+html[data-embedded=true] header .main-logo{display:none}
+html[data-embedded=true] header{min-height:52px;justify-content:flex-end;padding:8px 12px;flex-wrap:nowrap;background:var(--bg)}
+html[data-embedded=true] header .command-trigger{margin-right:auto;font-size:11px;gap:8px}
+html[data-embedded=true] .workspace-intro{display:none}
+html[data-embedded=true] main{padding:18px 12px}
+html[data-embedded=true] .preview-col{padding:24px 16px}
+html[data-embedded=true] .shell{min-height:0}
+html[data-embedded=true] body{overflow:visible}
+html[data-embedded=true] .alyrio-modal-container{min-height:320px}
+html[data-embedded=true] .sidebar-script-actions{position:sticky;top:0;z-index:10;background:var(--bg);padding:8px 0;margin-bottom:16px}
+html[data-embedded=true] .sidebar-script-actions .preview-actions{margin-top:0}
+html[data-embedded=true] .sidebar-script-actions #copyBtn{width:100%}
+html[data-embedded=true] .sidebar-script-actions .copied-flag:empty{display:none}
+
+html[data-embedded=true] header .command-trigger::before{display:none}
+html[data-embedded=true] .sidebar-script-actions{border-bottom:1px solid var(--border)}

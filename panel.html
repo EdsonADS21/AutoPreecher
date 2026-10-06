@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<title>Painel — Auto Preencher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="panel-base.css" />
+<link rel="stylesheet" href="identity.css" />
+<link rel="stylesheet" href="sidebar-panel.css" />
+<script src="panel-bridge.js"></script>
+</head>
+<body>
+  <header>
+    <img src="brand-mark.svg" alt="Auto Preencher" class="main-logo" />
+    <div class="head-title">
+      <h1>Auto Preencher <span class="workspace-badge">ATENDIMENTO</span></h1>
+      <div class="sub">Menos etapas. Mais foco.</div>
+    </div>
+    <button class="command-trigger" id="commandTrigger" title="Buscar ferramentas (Ctrl+K)">Buscar ferramentas <kbd>Ctrl K</kbd></button>
+    <div id="autoToggle" class="pill-toggle" title="Buscar automaticamente da aba">
+      <span class="dot"></span> Auto
+    </div>
+    <button id="themeToggle" class="icon-btn" title="Alternar tema">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </header>
+
+  <div class="shell" id="shell">
+    <nav class="rail">
+      <div class="rail-section-label">Ferramentas</div>
+      <button class="tab-btn active" data-section="scripts">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="tab-label-full">Scripts</span>
+      </button>
+
+      <button class="tab-btn" data-section="copiloto">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg></span>
+        <span class="tab-label-full">Alyrio AI</span>
+      </button>
+
+      <button class="tab-btn" data-section="bloco">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg></span>
+        <span class="tab-label-full">Bloco de Notas</span>
+      </button>
+
+      <button class="tab-btn" data-section="expander">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"/></svg></span>
+        <span class="tab-label-full">Text Expander</span>
+      </button>
+
+      <button class="tab-btn" data-section="senhas">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <span class="tab-label-full">Senhas e DNS</span>
+      </button>
+
+      <button class="tab-btn" data-section="portas">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="tab-label-full">Portas Roteador</span>
+      </button>
+
+      <button class="tab-btn" data-section="mac">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></span>
+        <span class="tab-label-full">Consulta MAC</span>
+      </button>
+
+      <div class="rail-section-label">Atalhos</div>
+      <button class="tab-btn" data-section="mapas">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg></span>
+        <span class="tab-label-full">Mapas e Técnicos</span>
+      </button>
+      <button class="tab-btn" data-section="links">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+        <span class="tab-label-full">Links</span>
+      </button>
+    </nav>
+
+    <main id="mainContent">
+<div class="workspace-intro"><span class="eyebrow">SEU DIA, MAIS SIMPLES</span><div><h2 id="workspaceTitle">Atendimento em foco</h2><span class="live-label">Ferramentas prontas para você</span></div></div>
+      <!-- SEÇÃO: SCRIPTS -->
+      <section class="section-panel active" id="section-scripts">
+        <div class="subnav">
+          <button class="chip-tab active" data-tab="atendimento">Atendimento</button>
+          <button class="chip-tab" data-tab="agendamento">Agendamento</button>
+          <button class="chip-tab" data-tab="solucionado">Solucionado</button>
+        </div>
+
+        <section class="tab-panel active" id="panel-atendimento">
+          <div class="form-head">
+            <h2>Registro do atendimento</h2>
+            <p>Organize as informações. O registro acompanha cada detalhe.</p>
+          </div>
+          <h3 class="form-step"><span>01</span> Identificação</h3>
+          <div class="identity-fields">
+          <div class="field">
+            <label for="at-nome">Com quem conversou</label>
+            <div class="with-btn">
+              <input type="text" id="at-nome" placeholder="Nome do cliente" />
+              <button class="mini-btn" data-fill="atendimento">Buscar dados</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="at-tel">Telefone de contato</label>
+            <input type="text" id="at-tel" placeholder="(00) 00000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="at-proto">Protocolo OPA / Native</label>
+            <input type="text" id="at-proto" class="proto-input" placeholder="0000000000" />
+          </div>
+
+          </div>
+          <h3 class="form-step"><span>02</span> Relato e diagnóstico</h3>
+          <div class="field">
+            <label>Descrição do Atendimento <span class="hint-inline">— escolha um script pronto</span></label>
+            <div class="chips" id="at-chips">
+              <div class="chip" data-value="LENTIDÃO">LENTIDÃO</div>
+              <div class="chip" data-value="DESCONEXÃO LOS">DESCONECTADO LOS</div>
+              <div class="chip" data-value="DESCONEXÃO PON">DESCONECTADO PON</div>
+              <div class="chip" data-value="SEM ACESSO AO WIFI">SEM ACESSO AO WIFI</div>
+              <div class="chip" data-value="SINAL ALTO">SINAL ALTO</div>
+              <div class="chip" data-value="DESCONECTADO RADIO">DESCONECTADO RADIO</div>
+              <div class="chip" data-value="OUTROS">OUTROS</div>
+            </div>
+            <textarea id="at-desc" placeholder="Texto da descrição (preenchido automaticamente ao escolher acima, editável)" style="margin-top:12px;"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="at-problema">Problema Real do Cliente</label>
+            <textarea id="at-problema" placeholder="Descreva o problema relatado pelo cliente"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn ghost" data-clear="atendimento">Limpar aba</button>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="panel-agendamento">
+          <div class="form-head">
+            <h2>Organize a próxima visita</h2>
+            <p>Preencha os dados da visita técnica</p>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="ag-nome">Quem vai acompanhar</label>
+              <input type="text" id="ag-nome" placeholder="Nome" />
+            </div>
+            <div class="field">
+              <label for="ag-tel">Telefone</label>
+              <input type="text" id="ag-tel" placeholder="(00) 00000-0000" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Período</label>
+            <div class="choice-group" id="ag-periodo">
+              <div class="choice" data-value="MANHA">MANHÃ</div>
+              <div class="choice" data-value="TARDE">TARDE</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ag-local">Localização ou referência</label>
+            <textarea id="ag-local" placeholder="Ponto de referência, endereço, etc."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Conversou com o cliente por</label>
+            <div class="choice-group" id="ag-canal">
+              <div class="choice" data-value="PRESENCIAL">PRESENCIAL</div>
+              <div class="choice" data-value="LIGACAO">LIGAÇÃO</div>
+              <div class="choice" data-value="OPA">OPA</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ag-proto">Protocolo</label>
+            <div class="with-btn">
+              <input type="text" id="ag-proto" class="proto-input" placeholder="0000000000" />
+              <button class="mini-btn" data-fill="agendamento">Buscar dados</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Motivo da visita <span class="hint-inline">— escolha um motivo</span></label>
+            <div class="chips" id="ag-motivo-chips">
+              <div class="chip" data-value="LOSS">LOSS</div>
+              <div class="chip" data-value="NÃO APARECE A REDE WIFI">NÃO APARECE A REDE WIFI</div>
+              <div class="chip" data-value="PON PISCANDO">PON PISCANDO</div>
+              <div class="chip" data-value="LENTIDÃO">LENTIDÃO</div>
+              <div class="chip" data-value="ROTEADOR COM DEFEITO">ROTEADOR COM DEFEITO</div>
+              <div class="chip" data-value="SINAL ALTO">SINAL ALTO</div>
+              <div class="chip" data-value="DESCONECTADO RADIO">DESCONECTADO RADIO</div>
+              <div class="chip" data-value="OUTROS">OUTROS</div>
+            </div>
+            <textarea id="ag-motivo" placeholder="Descreva o motivo da visita" style="margin-top:12px;"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn ghost" data-clear="agendamento">Limpar aba</button>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="panel-solucionado">
+          <div class="form-head">
+            <h2>Conclua o atendimento</h2>
+            <p>Confirme a resolução do atendimento</p>
+          </div>
+
+          <div class="field">
+            <label>Problema solucionado?</label>
+            <div class="choice-group" id="so-solucionado">
+              <div class="choice" data-value="SIM">SIM</div>
+              <div class="choice" data-value="NAO">NÃO</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Cliente validou?</label>
+            <div class="choice-group" id="so-validou">
+              <div class="choice" data-value="SIM">SIM</div>
+              <div class="choice" data-value="NAO">NÃO</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="so-proto">Protocolo OPA / Native</label>
+            <div class="with-btn">
+              <input type="text" id="so-proto" class="proto-input" placeholder="0000000000" />
+              <button class="mini-btn" data-fill="solucionado">Buscar dados</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Procedimentos Realizados <span class="hint-inline">— escolha opções</span></label>
+            <div class="chips" id="so-proc-chips">
+              <div class="chip" data-value="ALTERAÇÃO DE DNS">ALTERAÇÃO DE DNS</div>
+              <div class="chip" data-value="ALTERAÇÃO DA FAIXA DE IP">ALTERAÇÃO DA FAIXA DE IP</div>
+              <div class="chip" data-value="REINICIALIZAÇÃO DO ROTEADOR">REINICIALIZAÇÃO DO ROTEADOR</div>
+              <div class="chip" data-value="LIMPEZA DE MAC">LIMPEZA DE MAC</div>
+              <div class="chip" data-value="DESPROVISIONAR E PROVISIONAR O CLIENTE">DESPROVISIONAR E PROVISIONAR O CLIENTE</div>
+              <div class="chip" data-value="OUTROS">OUTROS</div>
+            </div>
+            <textarea id="so-proc" placeholder="Descreva os procedimentos realizados" style="min-height:100px;margin-top:12px;"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn ghost" data-clear="solucionado">Limpar aba</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- SEÇÃO: COPILOTO IA (MODAL ALYRIO) -->
+      <section class="section-panel" id="section-copiloto">
+        <div class="alyrio-modal-container">
+          <div class="alyrio-header">
+            <div class="alyrio-profile">
+              <div class="alyrio-avatar">A</div>
+              <div class="alyrio-info">
+                <div class="alyrio-name">Alyrio AI</div>
+                <div class="alyrio-sub" id="ai-connection-status" role="status">Groq &bull; Verificando</div>
+              </div>
+            </div>
+            <div class="alyrio-actions">
+              <button type="button" class="alyrio-btn-icon" id="ai-clear-chat-btn" title="Nova Conversa">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </button>
+              <button type="button" class="alyrio-btn-icon" id="ai-read-full-chat-btn" title="Carregar histórico para revisar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="alyrio-chips-bar">
+            <button class="alyrio-chip" data-ai-preset="humanizar">Humanizar</button>
+            <button class="alyrio-chip" data-ai-preset="resumir">Resumir</button>
+            <button class="alyrio-chip" data-ai-preset="tecnico">Explicar tema técnico</button>
+            <button class="alyrio-chip" data-ai-preset="revisar">Revisar registro</button>
+          </div>
+
+          <div class="ai-connection-tools">
+            <p id="ai-feedback" role="status">Gere sugestões para revisar e copiar.</p>
+            <button type="button" class="mini-btn" id="ai-check-connection-btn">Verificar conexão</button>
+          </div>
+          <div id="ai-chat-container" class="alyrio-chat-body" aria-live="polite" aria-busy="false"></div>
+
+          <div id="ai-img-preview-card" class="audio-upload-card" style="display:none; margin-bottom:12px; padding:10px;">
+            <img id="ai-img-preview-thumb" src="" alt="" style="width: 40px; height: 40px; border-radius:6px; object-fit: cover;" />
+            <div class="upload-text-info" style="flex:1;">
+              <div id="ai-img-preview-name" style="font-size:13px; font-weight:500;">imagem.png</div>
+              <div style="font-size:11px; color:var(--text-muted);">Anexada à consulta da IA</div>
+            </div>
+            <button type="button" class="btn ghost" id="ai-img-remove-btn" style="padding:6px; font-size:12px;">✖</button>
+          </div>
+
+          <div class="alyrio-input-wrapper">
+            <input type="file" id="ai-img-file-input" accept="image/png,image/jpeg,image/webp" style="display:none;" />
+            <button type="button" class="alyrio-attach-btn" id="ai-attach-img-btn" title="Anexar Imagem">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </button>
+            <textarea id="ai-user-prompt" placeholder="Escreva seu pedido ou cole o texto para revisar…" aria-label="Pedido para a IA" rows="1" maxlength="12000"></textarea>
+            <button id="ai-send-btn" class="alyrio-send-btn" title="Gerar resposta" aria-label="Gerar resposta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO: BLOCO DE NOTAS -->
+      <section class="section-panel" id="section-bloco">
+        <div class="form-head" style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <h2>Bloco de Notas</h2>
+            <p>Anotações e rascunhos rápidos do atendimento</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="mini-btn" id="nb-fill-btn">Puxar Dados</button>
+            <button class="btn ghost" id="nb-clear-btn" style="padding: 6px 12px;">Limpar</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="nb-nome">Nome</label>
+            <input type="text" id="nb-nome" placeholder="Nome do cliente" />
+          </div>
+          <div class="field">
+            <label for="nb-tel">Telefone</label>
+            <input type="text" id="nb-tel" placeholder="Telefone de contato" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="nb-proto">Protocolo</label>
+          <input type="text" id="nb-proto" class="proto-input" placeholder="0000000000" />
+        </div>
+
+        <div class="field">
+          <label for="nb-desc">Descrição / Anotações</label>
+          <textarea id="nb-desc" placeholder="Escreva suas anotações aqui..." style="min-height:160px;"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn primary" id="nb-copy-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar Anotações
+          </button>
+        </div>
+      </section>
+
+      <!-- SEÇÃO: TEXT EXPANDER -->
+      <section class="section-panel" id="section-expander">
+        <div class="form-head">
+          <h2>Text Expander</h2>
+          <p>Crie atalhos rápidos e insira áudios ao digitar um gatilho</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;">
+          <button class="btn primary" id="newTagBtn" style="flex: none;">+ Nova Tag</button>
+          <button class="btn" id="exportTagsBtn">Exportar</button>
+          <button class="btn" id="importTagsBtn">Importar</button>
+          <input type="file" id="fileImportInput" accept="application/json" />
+        </div>
+
+        <div class="tag-card" id="tagForm" style="margin-bottom: 24px;">
+          <div class="field-row">
+            <div class="field">
+              <label for="tf-shortcut">Gatilho (Atalho)</label>
+              <input type="text" id="tf-shortcut" class="proto-input" placeholder="#exemplo" />
+            </div>
+            <div class="field">
+              <label for="tf-label">Nome</label>
+              <input type="text" id="tf-label" placeholder="Ex.: Confirmação" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="tf-body">Texto (Conteúdo)</label>
+            <textarea id="tf-body" style="min-height:100px;" placeholder="Digite o texto de substituição..."></textarea>
+            <small>Clique para copiar um código e cole no texto. {{HORARIO}} gera Bom dia, Boa tarde ou Boa noite. {{EXCELENTE}} gera Excelente dia, Excelente tarde ou Excelente noite conforme o horário do computador, ao expandir o atalho. Exemplo: Desejo a você um {{EXCELENTE}}! O artigo um/uma se ajusta automaticamente.</small>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+              <button type="button" class="mini-btn" data-insert="{{DATA}}">+ {{DATA}}</button>
+              <button type="button" class="mini-btn" data-insert="{{TURNO}}">+ {{TURNO}}</button>
+              <button type="button" class="mini-btn" data-insert="{{PROTOCOLO}}">+ {{PROTOCOLO}}</button>
+              <button type="button" class="mini-btn" data-insert="{{HORARIO}}">+ {{HORARIO}}</button>
+              <button type="button" class="mini-btn" data-insert="{{EXCELENTE}}">+ {{EXCELENTE}}</button>
+              <button type="button" class="mini-btn" data-insert="{{DESPEDIDA}}">+ {{DESPEDIDA}}</button>
+            </div>
+            <small>Use {{DESPEDIDA}} no final da mensagem: gera a frase completa “Tenha um restante de dia maravilhoso!”, adaptada para dia, tarde ou noite.</small>
+          </div>
+
+          <div class="field">
+            <label>Anexar Áudio MP3 (Opcional)</label>
+            <label for="tf-audio" class="audio-upload-card" id="audio-upload-card">
+              <input type="file" id="tf-audio" accept="audio/mp3,audio/*" style="display:none;" />
+              <div class="upload-icon-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </div>
+              <div style="flex: 1;">
+                <div id="tf-audio-title" style="font-size: 14px; font-weight: 500; color: var(--text);">Clique para selecionar MP3</div>
+                <div id="tf-audio-sub" style="font-size: 12px; color: var(--text-muted);">Enviado ao ativar o atalho</div>
+              </div>
+              <button type="button" class="btn ghost" id="tf-audio-remove-btn" style="display: none; padding: 6px 12px;">Remover</button>
+            </label>
+          </div>
+
+          <div class="expander-preview"><div class="preview-caption"><span>PRÉVIA DA MENSAGEM</span><code id="draftShortcut">#atalho</code></div><p id="draftPreview">Seu texto aparece aqui enquanto você escreve.</p><small>As variáveis serão preenchidas ao usar o atalho.</small></div><div class="form-actions" style="margin-top:0;">
+            <button class="btn ghost" id="cancelTagBtn">Cancelar</button>
+            <button class="btn primary" id="saveTagBtn">Salvar Tag</button>
+          </div>
+        </div>
+
+        <label class="search-label" for="tagSearch">Encontrar um atalho</label><input type="search" id="tagSearch" placeholder="Busque por nome, gatilho ou conteúdo…" /><p id="tagSearchStatus" class="muted" role="status"></p><div class="tag-list" id="tagList"></div>
+      </section>
+
+      <!-- SEÇÃO: SENHAS E DNS -->
+      <section class="section-panel" id="section-senhas">
+        <div class="form-head">
+          <h2>Senhas, DNS e Parâmetros</h2>
+          <p>Clique sobre os itens para copiar instantaneamente</p>
+        </div>
+
+        <div style="margin-bottom: 32px;">
+          <h3 style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin: 0 0 16px;">
+            Verificação Radio
+          </h3>
+          <div class="info-cards-grid">
+            <div class="info-card-lg">
+              <span class="info-title">Intensidade de Sinal</span>
+              <span class="info-val">&lt; 75</span>
+            </div>
+            <div class="info-card-lg">
+              <span class="info-title">Ccq</span>
+              <span class="info-val">&gt; 90</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cred-grid" id="credGrid"></div>
+      </section>
+
+      <!-- SEÇÃO: PORTAS PARA ROTEADOR -->
+      <section class="section-panel" id="section-portas">
+        <div class="form-head">
+          <h2>Portas para Roteador</h2>
+          <p>Digite o IP do equipamento para gerar links de portas</p>
+        </div>
+
+        <div class="field">
+          <label for="router-ip-input">IP do Roteador</label>
+          <div class="with-btn">
+            <input type="text" id="router-ip-input" class="proto-input" placeholder="Ex: 192.168.1.1" />
+            <button class="btn primary" id="open-all-ports-btn" style="flex:none; padding:0 20px;">Abrir Abas</button>
+          </div>
+        </div>
+
+        <div class="cred-grid" id="routerPortsGrid"></div>
+      </section>
+
+      <!-- SEÇÃO: CONSULTA MAC -->
+      <section class="section-panel" id="section-mac">
+        <div class="form-head">
+          <h2>Consulta de MAC Vendor</h2>
+          <p>Consulte o fabricante utilizando o endereço MAC</p>
+        </div>
+
+        <div class="field">
+          <label for="mac-input">Endereço MAC</label>
+          <input type="text" id="mac-input" class="proto-input" placeholder="Ex: 00:11:22:33:44:55" />
+        </div>
+
+        <div id="mac-loading" style="display: none; color: var(--primary); font-size: 14px; font-weight: 500; margin-top: 16px;">
+          Pesquisando fabricante...
+        </div>
+
+        <div id="mac-result-card" class="cred-card" style="display: none; margin-top: 24px;">
+          <h4><span class="dot2"></span>Resultado da Consulta</h4>
+          <div style="margin-top: 16px;">
+            <div style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Fabricante</div>
+            <div id="mac-vendor-name" style="font-size: 20px; font-weight: 700; color: var(--text); margin: 4px 0 16px;">-</div>
+            
+            <div style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">MAC Analisado</div>
+            <div id="mac-searched" style="font-family: var(--mono); font-size: 14px; margin-top: 4px;">-</div>
+          </div>
+        </div>
+
+        <div id="mac-error-msg" style="display: none; margin-top: 24px; padding: 16px; border-radius: var(--radius-sm); background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); font-size: 14px; font-weight: 500;">
+        </div>
+      </section>
+
+      <!-- SEÇÃO: LINKS -->
+      <section class="section-panel" id="section-mapas">
+        <div class="form-head">
+          <h2>Mapas e Técnicos</h2>
+          <p>Consulte as regiões e os responsáveis informados nos seus mapas.</p>
+        </div>
+        <div class="map-toolbar">
+          <div class="field"><label for="technicianMapSelect">Mapa</label><select id="technicianMapSelect"></select></div>
+          <div class="field"><label for="technicianSearch">Buscar no mapa selecionado</label><input type="search" id="technicianSearch" placeholder="Região, cidade, técnico ou tipo de atendimento" /></div>
+        </div>
+        <div class="map-actions">
+          <button type="button" class="mini-btn" id="refreshTechnicianMap">Atualizar lista do Google</button>
+          <button type="button" class="mini-btn" id="importTechnicianMap">Importar KML neste mapa</button>
+          <a class="mini-btn" id="technicianMapLink" target="_blank" rel="noopener noreferrer">Abrir mapa original ↗</a>
+          <input type="file" id="technicianKmlFile" accept=".kml,application/vnd.google-earth.kml+xml" hidden />
+        </div>
+        <form id="technicianCoordinateForm" class="field" style="margin-top:16px;">
+          <label for="technicianCoordinates">Buscar por coordenada</label>
+          <div class="map-actions">
+            <input id="technicianCoordinates" type="text" placeholder="-19.506267, -43.898814" aria-describedby="coordinateHelp coordinateStatus" style="flex:1;min-width:180px;" />
+            <button type="submit" class="mini-btn" id="findTechnicianCoordinates">Localizar no mapa</button>
+            <button type="button" class="mini-btn" id="clearTechnicianCoordinates" hidden>Limpar coordenada</button>
+          </div>
+          <small id="coordinateHelp">O mapa acompanha automaticamente a busca por nome e a coordenada colada, após uma breve pausa. Enter aplica imediatamente. A busca usa o mapa selecionado. Para decimais com vírgula, separe os valores por ponto e vírgula.</small>
+          <p id="coordinateStatus" class="map-status" role="status" aria-live="polite"></p>
+        </form>
+        <p class="map-status" id="technicianMapStatus" role="status" aria-live="polite"></p>
+        <p class="map-source" id="technicianSourceDate"></p>
+        <div class="maps-layout">
+          <div class="map-area" id="technicianMapArea">
+            <iframe id="technicianMapFrame" title="Mapa de regiões" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+            <div class="map-empty" id="technicianRestricted" hidden>Este mapa exige uma conta Google com acesso. Use “Abrir mapa original”. Para consultar os técnicos aqui, exporte o mapa completo em KML e use “Importar KML neste mapa”.</div>
+            <p class="map-source">Clique nas áreas desenhadas para consultar a legenda original. Se o mapa não aparecer, use “Abrir mapa original”.</p>
+          </div>
+          <div class="map-directory">
+            <div class="map-directory-head"><h3>Regiões e responsáveis</h3><span id="technicianCount" role="status"></span></div>
+            <div id="technicianResults"></div>
+          </div>
+        </div>
+        <details class="map-help"><summary>Como importar os dados de um mapa com acesso restrito</summary><p>Abra o mapa original com sua conta Google. No menu do mapa, escolha “Exportar para KML/KMZ”, selecione o mapa completo e marque a opção de exportar como KML. Depois, selecione o mapa correspondente acima e importe o arquivo. A importação substitui somente a lista local desse mapa.</p></details>
+      </section>
+
+      <section class="section-panel" id="section-links">
+        <div class="form-head">
+          <h2>Links Úteis</h2>
+          <p>Acesso rápido à ferramentas de uso diário</p>
+        </div>
+        <div class="links-grid" id="linksGrid"></div>
+      </section>
+    </main>
+
+    <aside class="preview-col" id="previewCol">
+      <span class="eyebrow">REGISTRO EM TEMPO REAL</span><h3>Revise. Copie.<br />Continue.</h3>
+      <p class="sub">As informações do atendimento,<br />organizadas em um único registro.</p>
+      
+      <div class="ticket">
+        <div class="ticket-head">
+          <span class="tag" id="ticket-tag">ATENDIMENTO</span>
+          <span class="stamp" id="ticket-stamp">—</span>
+        </div>
+        <div class="ticket-body" id="ticket-body"><span class="empty">Preencha o formulário ao lado…</span></div>
+      </div>
+      
+      <div class="preview-actions">
+        <button class="btn primary" id="copyBtn">Copiar Registro</button>
+      </div>
+      <div class="copied-flag" id="copiedFlag"></div>
+      <p class="preview-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Copiar mantém o texto com você.</p>
+    </aside>
+  </div>
+
+  <dialog id="commandDialog" aria-labelledby="commandTitle"><div class="command-head"><h2 id="commandTitle">Ir para…</h2><button class="icon-btn" id="closeCommand" aria-label="Fechar busca">×</button></div><input type="search" id="commandSearch" aria-label="Buscar ferramentas" placeholder="O que você precisa fazer?" /><div id="commandResults"></div><p class="muted">↑ ↓ navegar · Enter abrir · Esc fechar</p></dialog>
+  <script src="ai-panel.js"></script>
+  <script src="panel.js"></script>
+<script src="productivity.js"></script>
+<script src="maps-data.js"></script>
+<script src="maps.js"></script>
+</body>
+</html>

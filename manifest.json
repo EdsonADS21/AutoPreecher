@@ -1,0 +1,87 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Preencher - Gerador de Senha e Scripts",
+  "version": "1.9",
+  "description": "Busca dados do Withub/Mundiale e Native Infinity, gera scripts, expande textos com áudios e protocolo.",
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "storage",
+    "unlimitedStorage",
+    "clipboardWrite"
+  ],
+  "icons": {
+    "128": "icon128.png"
+  },
+  "host_permissions": [
+    "https://app.withub.ai/*",
+    "*://*.app.withub.ai/*",
+    "https://app-beta.withub.ai/*",
+    "*://*.native-infinity.com.br/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "sidebar.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "Abrir barra lateral Auto Preencher",
+    "default_icon": "icon128.png"
+  },
+  "commands": {
+    "run-autofill-withub": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V"
+      },
+      "description": "Copiar dados do atendimento para o painel"
+    },
+    "run-autofill-native": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Copiar dados do Native para o painel"
+    },
+    "open-panel": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
+      },
+      "description": "Abrir painel de scripts"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "panel.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

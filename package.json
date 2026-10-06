@@ -1,0 +1,21 @@
+{
+  "name": "auto-preencher-workspace",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "preview": "node preview/server.cjs",
+    "ai": "node ai-service/server.cjs",
+    "test:ai": "node tests/ai-service.cjs && node tests/groq-service.cjs && node tests/ai-panel.cjs",
+    "test:ai:windows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/ai-launcher.ps1",
+    "test": "node tests/redesign.cjs",
+    "test:legacy": "node tests/ui.cjs",
+    "test:background": "node tests/background.cjs",
+    "test:withub": "node tests/withub-current.cjs && node tests/withub-beta.cjs && node tests/withub-expander.cjs",
+    "test:revisions": "node tests/expander-revisions.cjs",
+    "test:sidebar": "node tests/sidebar-background.cjs && node tests/sidebar.cjs",
+    "test:passwords": "node tests/password-modal.cjs",
+    "test:maps": "node tests/maps.cjs",
+    "test:update": "node tests/ui.cjs --update"
+  },
+  "devDependencies": { "playwright": "1.62.1" }
+}
